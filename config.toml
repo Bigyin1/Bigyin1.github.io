@@ -1,0 +1,62 @@
+baseurl = "https://bigyin1.github.io/"
+languageCode = "en-us"
+paginate = 10
+theme = "hello-friend-ng"
+title = "My Blog"
+
+
+[params]
+    dateform = "Jan 2, 2006"
+    dateformNum = "2006-01-02"
+    dateformNumTime = "2006-01-02 15:04"
+    dateformShort = "Jan 2"
+
+    # Subtitle for home
+    homeSubtitle = "About Me and other tricky stuff"
+
+    # Set disableReadOtherPosts to true in order to hide the links to other posts.
+    disableReadOtherPosts = false
+
+    # Enable sharing buttons, if you linke
+    enableSharingButtons = true
+
+    description = "homepage or blog"
+    footerLeft = "Powered by <a href=\"http://gohugo.io\">Hugo</a>"
+    footerRight = "_ser_"
+    images = [""]
+    keywords = "homepage, blog"
+
+[taxonomies]
+    category = "blog"
+    series = "series"
+    tag = "tags"
+
+
+
+[languages]
+    [languages.en]
+        keywords = ""
+        subtitle = "About Me and other tricky stuff"
+        title = "Serikus"
+        #copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+        readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+        logoHomeLink = "/"
+        logoText = "home"
+# or
+#
+# path = "/img/your-example-logo.svg"
+# alt = "Your example logo alt text"
+
+# And you can even create generic menu
+
+[menu]
+    [[menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "about/"
+    [[menu.main]]
+        identifier = "posts"
+        name = "Posts"
+        url = "posts/"
