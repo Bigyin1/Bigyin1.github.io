@@ -5,6 +5,8 @@ theme = "hello-friend-ng"
 title = "My Blog"
 
 
+
+
 [params]
     dateform = "Jan 2, 2006"
     dateformNum = "2006-01-02"
