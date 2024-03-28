@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Заметки о GNU Make | Home</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Заметки о GNU Make" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://bigyin1.github.io//2022/07/26/Make.html" />
+<meta property="og:url" content="https://bigyin1.github.io//2022/07/26/Make.html" />
+<meta property="og:site_name" content="Home" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-26T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Заметки о GNU Make" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-07-26T00:00:00+00:00","datePublished":"2022-07-26T00:00:00+00:00","headline":"Заметки о GNU Make","mainEntityOfPage":{"@type":"WebPage","@id":"https://bigyin1.github.io//2022/07/26/Make.html"},"url":"https://bigyin1.github.io//2022/07/26/Make.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://bigyin1.github.io//feed.xml" title="Home" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Home</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Обо Мне</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Заметки о GNU Make</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-07-26T00:00:00+00:00" itemprop="datePublished">Jul 26, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ol id="markdown-toc">
+  <li><a href="#полезные-ссылки" id="markdown-toc-полезные-ссылки">Полезные ссылки</a></li>
+  <li><a href="#зачем-нужен-make" id="markdown-toc-зачем-нужен-make">Зачем нужен Make?</a></li>
+  <li><a href="#подробнее-о-правилах" id="markdown-toc-подробнее-о-правилах">Подробнее о правилах.</a></li>
+  <li><a href="#переменные-и-функции" id="markdown-toc-переменные-и-функции">Переменные и функции</a></li>
+</ol>
+
+<h2 id="полезные-ссылки">Полезные ссылки</h2>
+
+<ol>
+  <li><a href="https://interrupt.memfault.com/blog/gnu-make-guidelines">Хорошая статья</a></li>
+  <li><a href="https://makefiletutorial.com/">Другая хорошая статья</a></li>
+  <li>Примеры использования make для C-проектов: <a href="https://github.com/memfault/zero-to-main">1</a> <a href="https://github.com/levex/levos7">2</a> <a href="https://github.com/edosedgar/stm32f0_ARM/tree/master/labs">3</a></li>
+  <li><a href="https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents">Документация</a></li>
+</ol>
+
+<h2 id="зачем-нужен-make">Зачем нужен Make?</h2>
+
+<p>GNU Make представляет собой одну из первых систем автоматизации сборки. Сборки чего? - спросите вы. Ответ прост - файлов, которые являются продуктом таких программ как: компиляторы, линковщики, генераторы документации, текстовые редакторы, тестовые утилиты, шаблонизаторы и др. Все они генерируют выходные файлы на основе некоторых входных файлов.</p>
+
+<p>В чем же здесь проблема? Ведь для подобной сборки достаточно обычного bash-скрипта. Действительно, это так, но такой скрипт будет запускать все инструкции сборки при каждом вызове. Например, изменив что-либо в одном из файлов и запустив скрипт, мы запустим пересборку всех файлов проекта, хотя это требовалось лишь для одного из них. Именно эту проблему решает Make.</p>
+
+<p>Make принимает на вход т.н Makefile. Основным строительным блоком Makefile-а являются <code class="language-plaintext highlighter-rouge">правила</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.o: main.c
+	gcc -c main.c -o main.o
+</code></pre></div></div>
+
+<p>Такие правила называются явным. Также существуют <a href="https://www.gnu.org/software/make/manual/html_node/Implicit-Rules.html#Implicit-Rules">неявные правила</a>(о них будет рассказано ниже).
+Деление на явные и неявные правила влияет только на приоритетность поиска правил для цели.
+Помимо целевого файла - <code class="language-plaintext highlighter-rouge">target</code> и инструкций по его сборке - <code class="language-plaintext highlighter-rouge">recipe</code>, перечислены зависимости цели - <code class="language-plaintext highlighter-rouge">prerequisites</code>. Как правило это входные файлы для команд в recipe (main.c в примере выше). Эта информация и позволяет решить описанную выше проблему.</p>
+
+<p>Make собирает цель следующим образом:</p>
+
+<ol>
+  <li>Поиск правила для цели. Одна цель может подходить под несколько правил. При поиске первый приоритет дается явным правилам.
+    <ul>
+      <li>Если целевой файл не существует и правило для него не найдено, то make завершается с ошибкой.</li>
+      <li>Если целевой файл уже существует, а правила для него нет, то его обработка завершается и make продолжает свою работу. Такой вариант развития событий в большинстве случаев применяется к файлам исходного кода.</li>
+      <li>Также есть алгоритм действий для случаев, когда для одной цели <a href="https://www.gnu.org/software/make/manual/html_node/Multiple-Rules.html#Multiple-Rules">подходит несколько правил</a>, но такого поведения следует избегать.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Для каждой зависимости из правила make запускает этот же алгоритм сборки цели, где целью является сама зависимость.</p>
+  </li>
+  <li>Теперь самое интересное: если целевой файл не существует или хотя бы одна из уже собранных зависимостей новее целевого файла, то происходит выполнение команд recipe.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prog: main.o utils.o
+    ld main.o utils.o -o prog
+
+main.o: main.c
+	gcc -c main.c -o main.o
+
+utils.o: utils.c
+	gcc -c utils.c -o utils.o
+</code></pre></div></div>
+
+<p>Так при сборке цели <code class="language-plaintext highlighter-rouge">prog</code>, при первом вызове будут выполнены все команды, при повторном вызове в отсутсвии изменеий в исходных файлах, не будет выполнена ни одна. При внесении изменений в один из исходных файлов, будет выполнена компиляция только для него и линковка исполняемого файла <code class="language-plaintext highlighter-rouge">prog</code>.</p>
+
+<p>Как можно заметить, make выстраивает ациклический граф зависимостей. Вершинами этого графа, которые не зависят от других, являются, в нашем случае, файлы исходного кода. Остальные вершины являются целями с зависимостями, которые пересобираются только при своих изменеии зависимостей.</p>
+
+<p>Для небольших проектов выгода такого подхода будет едва ли заметна, но полная пересборка большого проекта может занимать часы, и без подобной системы работа с ним была бы крайне затруднена. Кстати, эта одна из причин почему код проекта следует распределять по файлам.</p>
+
+<p>Также в make есть возможность задать target не как имя выходного файла, а как имя некотрого действия. Например:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.PHONY: install
+install: prog
+	cp prog /usr/bin
+</code></pre></div></div>
+
+<p>Такая цель считается всегда устаревшей, а также make не будет брать во внимание возможные файлы с таким же именем как и у этой цели.</p>
+
+<p>Важно отметить, что все свои операции make производит относительно текущей рабочей директории. Для её изменения нужно вызвать make следующим образом: <code class="language-plaintext highlighter-rouge">make -C somedir</code></p>
+
+<h2 id="подробнее-о-правилах">Подробнее о правилах.</h2>
+
+<p>Как можно заметить, в предыдущем примере правила для main.o и utils.o отличаются лишь именами соответствующих файлов. В make для обобщения подобных правил существует механизм шаблонных правил. Шаблонные правила относятся к <code class="language-plaintext highlighter-rouge">неявным правилам</code>.</p>
+
+<p>Пример выше будет выглядет следующим образом при исрользовании шаблонов:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prog: main.o utils.o
+    ld main.o utils.o -o prog
+
+%.o: %.c
+	gcc -c $&lt; -o $@
+</code></pre></div></div>
+
+<p>Под шаблон <code class="language-plaintext highlighter-rouge">%.o</code> попадаёт любой файл оканчвающийся на <code class="language-plaintext highlighter-rouge">.o</code>. Именем файла в данном случае является путь к нему относительно рабочей директории make, т.е и файл main.o и, например, build/main.o попадают под данный шаблон. Далее из имени файла make получает ту его часть, которая соответсвует шаблонному символу - <code class="language-plaintext highlighter-rouge">%</code> (в нашем случае это будет строка main или build/main) и подставляет на место того же <code class="language-plaintext highlighter-rouge">%</code> в шаблон списка зависимостей. Несколько подробнее об этом <a href="https://www.gnu.org/software/make/manual/html_node/Pattern-Intro.html#Pattern-Intro">здесь</a>.</p>
+
+<p>При написании шаблонных правил нам неизвестны имена цели и зависимостей, поэтому для получения этих имен нужно пользоваться т.н автоматическими переменными, которые устанавливает make при выполнении правила. В примере выше это <code class="language-plaintext highlighter-rouge">$&lt;</code> - содержит имя первой зависимости (например main.c), <code class="language-plaintext highlighter-rouge">$@</code> - имя цели. <a href="https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables">Полный список автоматических переменных</a>.</p>
+
+<p>Также к неявным правилам относятся несколько <a href="https://www.gnu.org/software/make/manual/html_node/Catalogue-of-Rules.html#Catalogue-of-Rules">встроенных</a> правил для компиляции и сборки C/C++ и некотрых других языков. Скорее всего название “неявные правила” было дано им именно поэтому, хотя логичнее,все же, было бы называть их шаблонными правилами.</p>
+
+<h2 id="переменные-и-функции">Переменные и функции</h2>
+
+<p>Существуют и обычные переменные. Для примера выше можно записать:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CC = gcc
+LD = ld
+OBJS = main.o utils.o
+
+prog: $(OBJS)
+    $(LD) $(OBJS) -o prog
+
+%.o: %.c
+	$(CC) -c $&lt; -o $@
+</code></pre></div></div>
+
+<p>Хорошей практикой считается перечисление только исходных файлов проекта, а имена соответствующих объектных файлов(и многих других файлов, производимых программами) генерируются автоматически.</p>
+
+<p>Для этого в make есть ряд <a href="https://www.gnu.org/software/make/manual/html_node/Functions.html#Functions">встроенных функций</a> для преобразования текста.</p>
+
+<p>Используем функцию pattern substitution(patsubst)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CC = gcc
+LD = ld
+
+SRCS = main.c utils.c
+OBJS = $(patsubst %.c,%.o,$(SRCS))
+
+prog: $(OBJS)
+    $(LD) $(OBJS) -o prog
+
+%.o: %.c
+	$(CC) -c $&lt; -o $@
+</code></pre></div></div>
+
+<p>Переменные и функции позволяет еще больше обобщить правила. Теперь в переменную SRCS можно добавлять новые исходные файлы проекта.</p>
+
+
+  </div><a class="u-url" href="/2022/07/26/Make.html" hidden></a>
+</article>
+
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/%20/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Bigyin1"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Bigyin1</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
+
+<script src='https://polyfill.io/v3/polyfill.min.js?features=es6'></script>
+<script id=”MathJax-script” async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
