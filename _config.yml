@@ -24,7 +24,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://bigyin1.github.io/" 
 github_username:  Bigyin1
 
-email: aparin.sv@phystech.edu
 
 # Build settings
 theme: minima
